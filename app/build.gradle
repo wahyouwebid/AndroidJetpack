@@ -1,0 +1,126 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "web.id.wahyou.jetpackapp"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'baseUrl', '"https://api.themoviedb.org/3/"'
+            buildConfigField 'String', 'imageUrl', '"https://image.tmdb.org/t/p/original/"'
+            buildConfigField 'String', 'apiKey', '"c93f2f9744a4e035a26887778d582a16"'
+        }
+        debug {
+            buildConfigField 'String', 'baseUrl', '"https://api.themoviedb.org/3/"'
+            buildConfigField 'String', 'imageUrl', '"https://image.tmdb.org/t/p/original/"'
+            buildConfigField 'String', 'apiKey', '"c93f2f9744a4e035a26887778d582a16"'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+
+    //Component Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$ui_ktx_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$ui_ktx_version"
+
+    //Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$dagger_version"
+    kapt "com.google.dagger:hilt-android-compiler:$dagger_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecyc_dagger_version"
+    kapt "androidx.hilt:hilt-compiler:$hilt_lifecyc_dagger_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    implementation "androidx.activity:activity-ktx:$activity_version"
+
+    //Library Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    //Library RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "com.jakewharton.rxbinding3:rxbinding:$rxbinding_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_rx_version"
+
+    //Chucker
+    implementation "com.github.chuckerteam.chucker:library:$chucker_version"
+
+    //Shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
+
+    //Card & RecyclerView
+    implementation "androidx.cardview:cardview:$cardview_version"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation "com.airbnb.android:lottie:$lottie_version"
+
+    //Core Kotlin
+    implementation "androidx.core:core-ktx:$core_ktx_version"
+
+    //Lifecycle
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    //Instrument Test
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.28-alpha'
+    implementation "androidx.test.espresso:espresso-idling-resource:3.3.0"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test:core-ktx:1.3.0'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test:rules:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.3.0"
+
+    //Unit Test
+    //mockito
+    testImplementation 'junit:junit:4.13'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+
+    // mockito kotlin
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+}
