@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_twotone_live_tv_24"
         android:title="@string/title_tvshow" />
 
+    <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/ic_twotone_favorite_24"
+        android:title="@string/title_favorite" />
+
 </menu>

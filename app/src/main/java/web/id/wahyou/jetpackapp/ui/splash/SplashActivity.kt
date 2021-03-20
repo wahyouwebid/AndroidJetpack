@@ -1,10 +1,10 @@
 package web.id.wahyou.jetpackapp.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import web.id.wahyou.jetpackapp.databinding.ActivitySplashBinding
 import web.id.wahyou.jetpackapp.ui.main.MainActivity
 

@@ -18,4 +18,7 @@
     <string name="title_error_content">Silahkan coba lagi atau hubungi kontak pengembang</string>
     <string name="title_error_ok">Oke, Saya mengerti</string>
     <string name="title_viewers">. Viewers</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

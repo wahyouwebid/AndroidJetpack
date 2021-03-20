@@ -1,130 +1,145 @@
 package web.id.wahyou.jetpackapp.data.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import web.id.wahyou.jetpackapp.data.model.DataModel
-import web.id.wahyou.jetpackapp.data.model.ResponseMovie
-import web.id.wahyou.jetpackapp.data.model.ResponseTvShow
+import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
+import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
+import web.id.wahyou.jetpackapp.data.model.MovieResponse
+import web.id.wahyou.jetpackapp.data.model.TvShowResponse
+import web.id.wahyou.jetpackapp.data.network.NetworkBoundResource
+import web.id.wahyou.jetpackapp.data.repository.local.LocalRepository
 import web.id.wahyou.jetpackapp.data.repository.remote.RemoteRepository
+import web.id.wahyou.jetpackapp.data.repository.state.ApiResponse
+import web.id.wahyou.jetpackapp.state.Resource
+import javax.inject.Inject
 
-class DataRepository private constructor(
-    private val remoteRepository: RemoteRepository
+class DataRepository @Inject constructor(
+    private val remoteRepository: RemoteRepository,
+    private val localRepository: LocalRepository
 ) : Repository {
-
-    companion object {
-        @Volatile
-        private var instance: DataRepository? = null
-
-        fun getInstance(remoteDataSource: RemoteRepository): DataRepository =
-            instance ?: synchronized(this) {
-                instance ?: DataRepository(remoteDataSource)
+    override fun getNowPlayingMovies(): LiveData<Resource<PagedList<MovieEntity>>> {
+        return object : NetworkBoundResource<PagedList<MovieEntity>, List<MovieResponse>>() {
+            public override fun loadFromDB(): LiveData<PagedList<MovieEntity>> {
+                val config = PagedList.Config.Builder().apply {
+                    setEnablePlaceholders(false)
+                    setInitialLoadSizeHint(10)
+                    setPageSize(10)
+                }.build()
+                return LivePagedListBuilder(localRepository.getMovies(), config).build()
             }
-    }
 
-    override fun getNowPlayingMovies(): LiveData<List<DataModel>> {
-        val listMovieResult = MutableLiveData<List<DataModel>>()
-        CoroutineScope(IO).launch {
-            remoteRepository.getNowPlayingMovies(object : RemoteRepository.LoadNowPlayingMoviesCallback{
-                override fun onAllMoviesReceived(movieResponse: List<ResponseMovie>) {
-                    val movieList = ArrayList<DataModel>()
-                    for (response in movieResponse){
-                        val movie = DataModel(
-                            response.id,
-                            response.name,
-                            response.desc,
-                            response.poster,
-                            response.img_preview,
-                            response.release_date,
-                            response.vote_average,
-                            response.popularity
-                        )
-                        movieList.add(movie)
-                    }
-                    listMovieResult.postValue(movieList)
-                }
-            })
-        }
+            override fun shouldFetch(data: PagedList<MovieEntity>?): Boolean =
+                data == null || data.isEmpty()
 
-        return listMovieResult
-    }
 
-    override fun getMovieDetail(movieId: Int): LiveData<DataModel> {
-        val movieResult = MutableLiveData<DataModel>()
-        CoroutineScope(IO).launch {
-            remoteRepository.getMovieDetail(movieId, object : RemoteRepository.LoadMovieDetailCallback{
-                override fun onMovieDetailReceived(movieResponse: ResponseMovie) {
-                    val movie = DataModel(
-                        movieResponse.id,
-                        movieResponse.name,
-                        movieResponse.desc,
-                        movieResponse.poster,
-                        movieResponse.img_preview,
-                        movieResponse.release_date,
-                        movieResponse.vote_average,
-                        movieResponse.popularity
+            public override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>> =
+                remoteRepository.getNowPlayingMovies()
+
+            public override fun saveCallResult(data: List<MovieResponse>) {
+                val movieList = ArrayList<MovieEntity>()
+                for (item in data) {
+                    val movie = MovieEntity(
+                        null,
+                        item.id,
+                        item.name,
+                        item.desc,
+                        item.poster,
+                        item.img_preview,
+                        item.release_date,
+                        item.vote_average,
+                        item.popularity,
+                        false
                     )
-
-                    movieResult.postValue(movie)
+                    movieList.add(movie)
                 }
-            })
-        }
 
-        return movieResult
+                localRepository.insertMovies(movieList)
+            }
+
+        }.asLiveData()
     }
 
-    override fun getTvShowOnTheAir(): LiveData<List<DataModel>> {
-        val listTvShowResult = MutableLiveData<List<DataModel>>()
-        CoroutineScope(IO).launch {
-            remoteRepository.getTvShowOnTheAir(object : RemoteRepository.LoadOnTheAirTvShowCallback{
-                override fun onAllTvShowsReceived(tvShowResponse: List<ResponseTvShow>) {
-                    val tvShowList = ArrayList<DataModel>()
-                    for (response in tvShowResponse){
-                        val tvShow = DataModel(
-                            response.id,
-                            response.name,
-                            response.desc,
-                            response.poster,
-                            response.img_preview,
-                            response.first_air_date,
-                            response.vote_average,
-                            response.popularity
-                        )
-                        tvShowList.add(tvShow)
-                    }
-
-                    listTvShowResult.postValue(tvShowList)
-                }
-            })
-        }
-
-        return listTvShowResult
+    override fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>> {
+        val config = PagedList.Config.Builder().apply {
+            setEnablePlaceholders(false)
+            setInitialLoadSizeHint(10)
+            setPageSize(10)
+        }.build()
+        return LivePagedListBuilder(localRepository.getFavoriteMovies(), config).build()
     }
 
-    override fun getTvShowDetail(tvShowId: Int): LiveData<DataModel> {
-        val tvShowResult = MutableLiveData<DataModel>()
-        CoroutineScope(IO).launch {
-            remoteRepository.getTvShowDetail(tvShowId, object : RemoteRepository.LoadTvShowDetailCallback{
-                override fun onTvShowDetailReceived(tvShowResponse: ResponseTvShow) {
-                    val tvShow = DataModel(
-                        tvShowResponse.id,
-                        tvShowResponse.name,
-                        tvShowResponse.desc,
-                        tvShowResponse.poster,
-                        tvShowResponse.img_preview,
-                        tvShowResponse.first_air_date,
-                        tvShowResponse.vote_average,
-                        tvShowResponse.popularity
+    override fun getMovieDetail(movieId: Int): LiveData<MovieEntity> {
+        return localRepository.getDetailMovie(movieId)
+    }
+
+    override fun getTvShowOnTheAir(): LiveData<Resource<PagedList<TvShowEntity>>> {
+        return object : NetworkBoundResource<PagedList<TvShowEntity>, List<TvShowResponse>>() {
+            public override fun loadFromDB(): LiveData<PagedList<TvShowEntity>> {
+                val config = PagedList.Config.Builder().apply {
+                    setEnablePlaceholders(false)
+                    setInitialLoadSizeHint(10)
+                    setPageSize(10)
+                }.build()
+                return LivePagedListBuilder(localRepository.getTvShows(), config).build()
+            }
+
+            override fun shouldFetch(data: PagedList<TvShowEntity>?): Boolean =
+                data == null || data.isEmpty()
+
+            public override fun createCall(): LiveData<ApiResponse<List<TvShowResponse>>> =
+                remoteRepository.getTvShowOnTheAir()
+
+
+            public override fun saveCallResult(data: List<TvShowResponse>) {
+                val tvShowList = ArrayList<TvShowEntity>()
+                for (item in data) {
+                    val tvShow = TvShowEntity(
+                        null,
+                        item.id,
+                        item.name,
+                        item.desc,
+                        item.poster,
+                        item.img_preview,
+                        item.first_air_date,
+                        item.vote_average,
+                        item.popularity,
+                        false
                     )
-
-                    tvShowResult.postValue(tvShow)
+                    tvShowList.add(tvShow)
                 }
-            })
-        }
 
-        return tvShowResult
+                localRepository.insertTvShows(tvShowList)
+            }
+
+        }.asLiveData()
     }
 
+    override fun getFavoriteTvShows(): LiveData<PagedList<TvShowEntity>> {
+        val config = PagedList.Config.Builder().apply {
+            setEnablePlaceholders(false)
+            setInitialLoadSizeHint(10)
+            setPageSize(10)
+        }.build()
+        return LivePagedListBuilder(localRepository.getFavoriteTvShows(), config).build()
+    }
+
+    override fun getTvShowDetail(tvShowId: Int): LiveData<TvShowEntity> {
+        return localRepository.getDetailTvShow(tvShowId)
+    }
+
+    override fun setFavoriteMovie(movie: MovieEntity) {
+        CoroutineScope(IO).launch {
+            localRepository.setFavoriteMovie(movie)
+        }
+    }
+
+    override fun setFavoriteTvShow(tvShow: TvShowEntity) {
+        CoroutineScope(IO).launch {
+            localRepository.setFavoriteTvShow(tvShow)
+        }
+    }
 }

@@ -82,7 +82,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_16"
                     android:text="@string/title_movie"
-                    android:textColor="@color/colorText"
                     android:textSize="@dimen/font_18"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -91,6 +90,7 @@
 
                 <TextView
                     android:id="@+id/tvRelease"
+                    style="@style/textViewCustomLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16"
@@ -105,6 +105,7 @@
 
                 <TextView
                     android:id="@+id/tvPopularity"
+                    style="@style/textViewCustomLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16"
@@ -119,6 +120,7 @@
 
                 <TextView
                     android:id="@+id/tvRating"
+                    style="@style/textViewCustomLight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16"
@@ -155,6 +157,7 @@
 
                 <TextView
                     android:id="@+id/tvDescription"
+                    style="@style/textViewCustomLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8"
@@ -186,6 +189,17 @@
 
             </androidx.cardview.widget.CardView>
 
+            <ImageButton
+                android:id="@+id/btnFavorite"
+                android:layout_width="@dimen/size_50"
+                android:layout_height="@dimen/size_50"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:background="@drawable/button_rounded"
+                android:contentDescription="@string/title_content_des_img_favo"
+                android:src="@drawable/ic_baseline_favorite_border_24"
+                android:tint="@color/white" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 

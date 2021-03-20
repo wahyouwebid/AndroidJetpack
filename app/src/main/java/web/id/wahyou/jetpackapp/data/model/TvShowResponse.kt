@@ -2,7 +2,7 @@ package web.id.wahyou.jetpackapp.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseTvShow(
+data class TvShowResponse(
     @SerializedName("id") var id: Int = 0,
     @SerializedName("name") var name: String? = null,
     @SerializedName("overview") var desc: String? = null,

@@ -1,13 +1,13 @@
 package web.id.wahyou.jetpackapp.ui.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import dagger.android.support.DaggerAppCompatActivity
 import web.id.wahyou.jetpackapp.R
 import web.id.wahyou.jetpackapp.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
     private val binding : ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)

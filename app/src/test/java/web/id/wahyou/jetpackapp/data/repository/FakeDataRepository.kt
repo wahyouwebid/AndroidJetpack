@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import web.id.wahyou.jetpackapp.data.model.DataModel
-import web.id.wahyou.jetpackapp.data.model.ResponseMovie
-import web.id.wahyou.jetpackapp.data.model.ResponseTvShow
+import web.id.wahyou.jetpackapp.data.model.MovieResponse
+import web.id.wahyou.jetpackapp.data.model.TvShowResponse
 import web.id.wahyou.jetpackapp.data.repository.remote.RemoteRepository
 
 class FakeDataRepository(
@@ -18,7 +17,7 @@ class FakeDataRepository(
         val listMovieResult = MutableLiveData<List<DataModel>>()
         CoroutineScope(IO).launch {
             remoteRepository.getNowPlayingMovies(object : RemoteRepository.LoadNowPlayingMoviesCallback{
-                override fun onAllMoviesReceived(movieResponse: List<ResponseMovie>) {
+                override fun onAllMoviesReceived(movieResponse: List<MovieResponse>) {
                     val movieList = ArrayList<DataModel>()
                     for (response in movieResponse){
                         val movie = DataModel(
@@ -45,7 +44,7 @@ class FakeDataRepository(
         val movieResult = MutableLiveData<DataModel>()
         CoroutineScope(IO).launch {
             remoteRepository.getMovieDetail(movieId, object : RemoteRepository.LoadMovieDetailCallback{
-                override fun onMovieDetailReceived(movieResponse: ResponseMovie) {
+                override fun onMovieDetailReceived(movieResponse: MovieResponse) {
                     val movie = DataModel(
                         movieResponse.id,
                         movieResponse.name,
@@ -69,7 +68,7 @@ class FakeDataRepository(
         val listTvShowResult = MutableLiveData<List<DataModel>>()
         CoroutineScope(IO).launch {
             remoteRepository.getTvShowOnTheAir(object : RemoteRepository.LoadOnTheAirTvShowCallback{
-                override fun onAllTvShowsReceived(tvShowResponse: List<ResponseTvShow>) {
+                override fun onAllTvShowsReceived(tvShowResponse: List<TvShowResponse>) {
                     val tvShowList = ArrayList<DataModel>()
                     for (response in tvShowResponse){
                         val tvShow = DataModel(
@@ -97,7 +96,7 @@ class FakeDataRepository(
         val tvShowResult = MutableLiveData<DataModel>()
         CoroutineScope(IO).launch {
             remoteRepository.getTvShowDetail(tvShowId, object : RemoteRepository.LoadTvShowDetailCallback{
-                override fun onTvShowDetailReceived(tvShowResponse: ResponseTvShow) {
+                override fun onTvShowDetailReceived(tvShowResponse: TvShowResponse) {
                     val tvShow = DataModel(
                         tvShowResponse.id,
                         tvShowResponse.name,

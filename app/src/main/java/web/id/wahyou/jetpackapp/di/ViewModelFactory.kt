@@ -4,22 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import web.id.wahyou.jetpackapp.data.repository.DataRepository
 import web.id.wahyou.jetpackapp.ui.detail.DetailViewModel
+import web.id.wahyou.jetpackapp.ui.main.favorite.movie.FavoriteMovieViewModel
+import web.id.wahyou.jetpackapp.ui.main.favorite.tvshow.FavoriteTvShowViewModel
 import web.id.wahyou.jetpackapp.ui.main.movie.MovieViewModel
 import web.id.wahyou.jetpackapp.ui.main.tvshow.TvShowViewModel
+import javax.inject.Inject
 
-class ViewModelFactory private constructor(
+class ViewModelFactory @Inject constructor(
     private val dataRepository: DataRepository
 ): ViewModelProvider.NewInstanceFactory() {
-
-    companion object {
-        @Volatile
-        private var instance: ViewModelFactory? = null
-
-        fun getInstance(): ViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideCatalogRepository())
-            }
-    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -32,6 +25,12 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
                 DetailViewModel(dataRepository) as T
+            }
+            modelClass.isAssignableFrom(FavoriteMovieViewModel::class.java) -> {
+                FavoriteMovieViewModel(dataRepository) as T
+            }
+            modelClass.isAssignableFrom(FavoriteTvShowViewModel::class.java) -> {
+                FavoriteTvShowViewModel(dataRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

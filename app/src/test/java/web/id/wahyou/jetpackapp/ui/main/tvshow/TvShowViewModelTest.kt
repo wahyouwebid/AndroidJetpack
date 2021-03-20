@@ -12,7 +12,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import web.id.wahyou.jetpackapp.data.model.DataModel
 import web.id.wahyou.jetpackapp.data.repository.DataRepository
 import web.id.wahyou.jetpackapp.utils.DataDummy
 

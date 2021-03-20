@@ -9,14 +9,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovie"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
         app:layout_constraintTop_toTopOf="parent"/>
 
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shPopular"
+        android:id="@+id/shMovie"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent">

@@ -2,13 +2,18 @@ package web.id.wahyou.jetpackapp.ui.main.tvshow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import web.id.wahyou.jetpackapp.data.model.DataModel
+import androidx.paging.PagedList
+import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 import web.id.wahyou.jetpackapp.data.repository.DataRepository
+import web.id.wahyou.jetpackapp.state.Resource
+import javax.inject.Inject
 
-class TvShowViewModel(
+class TvShowViewModel @Inject constructor(
     private val dataRepository: DataRepository
 ) : ViewModel() {
 
-    fun getOnTheAirTvShows(): LiveData<List<DataModel>> = dataRepository.getTvShowOnTheAir()
+    fun getOnTheAirTvShows(): LiveData<Resource<PagedList<TvShowEntity>>> {
+        return dataRepository.getTvShowOnTheAir()
+    }
 
 }

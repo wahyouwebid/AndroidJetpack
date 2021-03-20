@@ -5,16 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import web.id.wahyou.jetpackapp.data.model.DataModel
+import dagger.android.support.DaggerFragment
+import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 import web.id.wahyou.jetpackapp.databinding.FragmentTvshowBinding
 import web.id.wahyou.jetpackapp.di.ViewModelFactory
+import web.id.wahyou.jetpackapp.state.Status
 import web.id.wahyou.jetpackapp.ui.detail.DetailActivity
 import web.id.wahyou.jetpackapp.utils.Constants.TYPE_TVSHOW
+import javax.inject.Inject
 
-class TvShowFragment : Fragment() {
+class TvShowFragment : DaggerFragment() {
 
     private val binding : FragmentTvshowBinding by lazy {
         FragmentTvshowBinding.inflate(layoutInflater)
@@ -22,17 +27,21 @@ class TvShowFragment : Fragment() {
 
     private lateinit var viewModel: TvShowViewModel
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
     private val adapter : TvShowAdapter by lazy {
         TvShowAdapter{item -> showDetail(item)}
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupView()
-        setupViewModel()
+        setupAdapter()
+        activity?.let { setupViewModel(it) }
+        observeTvShow()
     }
 
-    private fun setupView() {
+    private fun setupAdapter() {
         with(binding) {
             rvTvShow.also {
                 it.adapter = adapter
@@ -42,20 +51,35 @@ class TvShowFragment : Fragment() {
         }
     }
 
-    private fun setupViewModel() {
-        val factory = ViewModelFactory.getInstance()
-        viewModel = ViewModelProvider(
-            this,
-            factory
-        )[TvShowViewModel::class.java]
+    private fun setupViewModel(fragmentActivity: FragmentActivity) {
+        fragmentActivity.let {
+            viewModel = ViewModelProvider(
+                it,
+                factory
+            )[TvShowViewModel::class.java]
+        }
+    }
 
-        with(binding) {
-            viewModel.getOnTheAirTvShows().observe(viewLifecycleOwner, { listTvShow ->
-                rvTvShow.adapter?.let { adapter ->
-                    when (adapter) {
-                        is TvShowAdapter -> {
-                            adapter.setData(listTvShow)
+    private fun observeTvShow() {
+        with(binding){
+            viewModel.getOnTheAirTvShows().observe(viewLifecycleOwner, Observer { listTvShow ->
+                if (listTvShow != null) {
+                    when (listTvShow.status) {
+                        Status.LOADING -> shTvShow.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
                             shTvShow.visibility = View.GONE
+                            rvTvShow.adapter?.let { adapter ->
+                                when (adapter) {
+                                    is TvShowAdapter -> {
+                                        adapter.submitList(listTvShow.data)
+                                        adapter.notifyDataSetChanged()
+                                    }
+                                }
+                            }
+                        }
+                        Status.ERROR -> {
+                            shTvShow.visibility = View.GONE
+                            Toast.makeText(context, "Check your internet connection", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -63,10 +87,10 @@ class TvShowFragment : Fragment() {
         }
     }
 
-    private fun showDetail(item: DataModel) {
+    private fun showDetail(item: TvShowEntity) {
         startActivity(
             Intent(context, DetailActivity::class.java)
-                .putExtra(DetailActivity.EXTRA_DATA, item.id)
+                .putExtra(DetailActivity.EXTRA_DATA, item.tvShowId)
                 .putExtra(DetailActivity.EXTRA_TYPE, TYPE_TVSHOW)
         )
     }

@@ -2,7 +2,7 @@ package web.id.wahyou.jetpackapp.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseMovie(
+data class MovieResponse(
     @SerializedName("id") var id: Int = 0,
     @SerializedName("title") var name: String? = null,
     @SerializedName("overview") var desc: String? = null,
