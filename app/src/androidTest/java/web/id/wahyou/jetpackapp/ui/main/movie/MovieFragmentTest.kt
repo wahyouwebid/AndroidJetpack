@@ -28,34 +28,23 @@ class MovieFragmentTest {
 
     @Test
     fun loadMovies() {
-        Espresso.onView(withId(R.id.rvMovie))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.rvMovie))
-            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(20))
-
+        Espresso.onView(withId(R.id.rvMovie)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.rvMovie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(20))
     }
 
     @Test
     fun detailMovie() {
-        Espresso.onView(withId(R.id.rvMovie))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.rvMovie))
-            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5))
-        Espresso.onView(withId(R.id.rvMovie))
-            .perform(
+        Espresso.onView(withId(R.id.rvMovie)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.rvMovie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5))
+        Espresso.onView(withId(R.id.rvMovie)).perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(5,
                     ViewActions.click()
                 ))
 
-        Espresso.onView(withId(R.id.imgBackground))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.imgPoster))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.tvTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.tvDescription))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-
+        Espresso.onView(withId(R.id.imgBackground)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.imgPoster)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.tvTitle)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.tvDescription)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.pressBack()
     }
 

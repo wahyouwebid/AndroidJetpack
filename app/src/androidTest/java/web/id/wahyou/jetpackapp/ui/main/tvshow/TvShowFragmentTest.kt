@@ -25,41 +25,29 @@ class TvShowFragmentTest {
     @Before
     fun setUp() {
         IdlingRegistry.getInstance().register(EspressoIdlingResource.espressoTestIdlingResource)
-
-        Espresso.onView(Matchers.allOf(withId(R.id.navigation_tvshow)))
-            .perform(ViewActions.click())
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(Matchers.allOf(withId(R.id.navigation_tvshow))).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
     fun loadTvShow() {
-        Espresso.onView(withId(R.id.rvTvShow))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.rvTvShow))
-            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(20))
+        Espresso.onView(withId(R.id.rvTvShow)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.rvTvShow)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(20))
 
     }
 
     @Test
     fun detailTvShow() {
-        Espresso.onView(withId(R.id.rvTvShow))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.rvTvShow))
-            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5))
-        Espresso.onView(withId(R.id.rvTvShow))
-            .perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(5,
+        Espresso.onView(withId(R.id.rvTvShow)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.rvTvShow)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+        Espresso.onView(withId(R.id.rvTvShow)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,
                     ViewActions.click()
                 ))
-        Espresso.onView(withId(R.id.imgBackground))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.imgPoster))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.tvTitle))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.tvDescription))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
+        Espresso.onView(withId(R.id.imgBackground)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.imgPoster)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.tvTitle)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.tvDescription)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.pressBack()
     }
 

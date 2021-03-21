@@ -32,24 +32,15 @@ class MainActivityTest {
 
     @Test
     fun checkBottomBarDisplayed() {
-        Espresso.onView(withId(R.id.navView))
-            .perform(ViewActions.click())
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.navView)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
     fun checkOtherBottomBar() {
-        Espresso.onView(withId(R.id.navigation_tvshow))
-            .perform(ViewActions.click())
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.navigation_movie))
-            .perform(ViewActions.click())
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.navigation_tvshow))
-            .perform(ViewActions.click())
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(withId(R.id.navigation_movie))
-            .perform(ViewActions.click())
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.navigation_tvshow)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.navigation_movie)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.navigation_favorite)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.navigation_tvshow)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(withId(R.id.navigation_movie)).perform(ViewActions.click()).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 }
