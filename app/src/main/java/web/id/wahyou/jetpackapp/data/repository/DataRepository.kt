@@ -131,15 +131,15 @@ class DataRepository @Inject constructor(
         return localRepository.getDetailTvShow(tvShowId)
     }
 
-    override fun setFavoriteMovie(movie: MovieEntity) {
+    override fun setFavoriteMovie(movie: MovieEntity, state : Boolean) {
         CoroutineScope(IO).launch {
-            localRepository.setFavoriteMovie(movie)
+            localRepository.setFavoriteMovie(movie, state)
         }
     }
 
-    override fun setFavoriteTvShow(tvShow: TvShowEntity) {
+    override fun setFavoriteTvShow(tvShow: TvShowEntity, state : Boolean) {
         CoroutineScope(IO).launch {
-            localRepository.setFavoriteTvShow(tvShow)
+            localRepository.setFavoriteTvShow(tvShow, state)
         }
     }
 }

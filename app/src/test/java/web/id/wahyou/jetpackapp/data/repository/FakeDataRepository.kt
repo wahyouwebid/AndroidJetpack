@@ -133,15 +133,11 @@ class FakeDataRepository @Inject constructor(
         return localRepository.getDetailTvShow(tvShowId)
     }
 
-    override fun setFavoriteMovie(movie: MovieEntity) {
-        CoroutineScope(IO).launch {
-            localRepository.setFavoriteMovie(movie)
-        }
+    override fun setFavoriteMovie(movie: MovieEntity, state: Boolean) {
+        localRepository.setFavoriteMovie(movie, state)
     }
 
-    override fun setFavoriteTvShow(tvShow: TvShowEntity) {
-        CoroutineScope(IO).launch {
-            localRepository.setFavoriteTvShow(tvShow)
-        }
+    override fun setFavoriteTvShow(tvShow: TvShowEntity, state: Boolean) {
+        localRepository.setFavoriteTvShow(tvShow, state)
     }
 }

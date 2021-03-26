@@ -18,10 +18,12 @@ class DetailViewModel @Inject constructor(
         dataRepository.getTvShowDetail(tvShowId)
 
     fun setFavoriteMovie(movie: MovieEntity){
-        dataRepository.setFavoriteMovie(movie)
+        val newState = !movie.isFavorite
+        dataRepository.setFavoriteMovie(movie, newState)
     }
 
     fun setFavoriteTvShow(tvShow: TvShowEntity){
-        dataRepository.setFavoriteTvShow(tvShow)
+        val newState = !tvShow.isFavorite
+        dataRepository.setFavoriteTvShow(tvShow, newState)
     }
 }

@@ -3,32 +3,37 @@ package web.id.wahyou.jetpackapp.data.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doAnswer
-import com.nhaarman.mockitokotlin2.eq
-import com.nhaarman.mockitokotlin2.verify
-import junit.framework.Assert
+import com.nhaarman.mockitokotlin2.*
 import junit.framework.Assert.assertEquals
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 import web.id.wahyou.jetpackapp.LiveDataTestUtil
 import web.id.wahyou.jetpackapp.PagedListUtil
+import web.id.wahyou.jetpackapp.TestCoroutineRule
 import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 import web.id.wahyou.jetpackapp.data.repository.local.LocalRepository
 import web.id.wahyou.jetpackapp.data.repository.remote.RemoteRepository
 import web.id.wahyou.jetpackapp.state.Resource
 import web.id.wahyou.jetpackapp.utils.DataDummy
+import java.util.concurrent.Executor
 
+@ExperimentalCoroutinesApi
+@RunWith(MockitoJUnitRunner::class)
 class DataRepositoryTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    @get:Rule
+    val testCoroutineRule = TestCoroutineRule()
+
     private val remote = Mockito.mock(RemoteRepository::class.java)
     private val local = Mockito.mock(LocalRepository::class.java)
-    private val catalogRepository = FakeDataRepository(remote, local)
+    private val dataRepository = FakeDataRepository(remote, local)
 
     private val listMovie = DataDummy.generateDataMovieDummy()
     private val listTvShow = DataDummy.generateDataTvShowDummy()
@@ -39,7 +44,7 @@ class DataRepositoryTest {
     fun getNowPlayingMovies() {
         val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
         Mockito.`when`(local.getMovies()).thenReturn(dataSourceFactory)
-        catalogRepository.getNowPlayingMovies()
+        dataRepository.getNowPlayingMovies()
 
         val movieEntity = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDataMovieDummy()))
         Mockito.verify(local).getMovies()
@@ -51,7 +56,7 @@ class DataRepositoryTest {
     fun getTvShowOnTheAir() {
         val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
         Mockito.`when`(local.getTvShows()).thenReturn(dataSourceFactory)
-        catalogRepository.getTvShowOnTheAir()
+        dataRepository.getTvShowOnTheAir()
 
         val tvShowEntity = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDataTvShowDummy()))
         Mockito.verify(local).getTvShows()
@@ -65,7 +70,7 @@ class DataRepositoryTest {
         dummyMovie.value = movie
         Mockito.`when`(local.getDetailMovie(movie.movieId)).thenReturn(dummyMovie)
 
-        val data = LiveDataTestUtil.getValue(catalogRepository.getMovieDetail(movie.movieId))
+        val data = LiveDataTestUtil.getValue(dataRepository.getMovieDetail(movie.movieId))
         Mockito.verify(local).getDetailMovie(movie.movieId)
         org.junit.Assert.assertNotNull(data)
         assertEquals(movie.movieId, data.movieId)
@@ -77,7 +82,7 @@ class DataRepositoryTest {
         dummyTvShow.value = tvShow
         Mockito.`when`(local.getDetailTvShow(tvShow.tvShowId)).thenReturn(dummyTvShow)
 
-        val data = LiveDataTestUtil.getValue(catalogRepository.getTvShowDetail(tvShow.tvShowId))
+        val data = LiveDataTestUtil.getValue(dataRepository.getTvShowDetail(tvShow.tvShowId))
         Mockito.verify(local).getDetailTvShow(tvShow.tvShowId)
         org.junit.Assert.assertNotNull(data)
         assertEquals(tvShow.tvShowId, data.tvShowId)
@@ -87,7 +92,7 @@ class DataRepositoryTest {
     fun getListFavoriteMovies() {
         val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
         Mockito.`when`(local.getFavoriteMovies()).thenReturn(dataSourceFactory)
-        catalogRepository.getFavoriteMovies()
+        dataRepository.getFavoriteMovies()
 
         val movieEntity = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDataMovieDummy()))
         Mockito.verify(local).getFavoriteMovies()
@@ -99,11 +104,29 @@ class DataRepositoryTest {
     fun getListFavoriteTvShows() {
         val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
         Mockito.`when`(local.getFavoriteTvShows()).thenReturn(dataSourceFactory)
-        catalogRepository.getFavoriteTvShows()
+        dataRepository.getFavoriteTvShows()
 
         val tvShowEntity = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDataTvShowDummy()))
         Mockito.verify(local).getFavoriteTvShows()
         org.junit.Assert.assertNotNull(tvShowEntity.data)
         assertEquals(listTvShow.size.toLong(), tvShowEntity.data?.size?.toLong())
+    }
+
+    @Test
+    fun setFavoriteMovie() {
+        testCoroutineRule.runBlockingTest {
+            dataRepository.setFavoriteMovie(DataDummy.getDetailMovie(), true)
+            verify(local).setFavoriteMovie(DataDummy.getDetailMovie(), true)
+            verifyNoMoreInteractions(local)
+        }
+    }
+
+    @Test
+    fun setFavoriteTvShow() {
+        testCoroutineRule.runBlockingTest {
+            dataRepository.setFavoriteTvShow(DataDummy.getDetailTvShow(), true)
+            verify(local).setFavoriteTvShow(DataDummy.getDetailTvShow(), true)
+            verifyNoMoreInteractions(local)
+        }
     }
 }

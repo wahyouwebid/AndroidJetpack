@@ -19,7 +19,7 @@ interface Repository {
 
     fun getTvShowDetail(tvShowId: Int): LiveData<TvShowEntity>
 
-    fun setFavoriteMovie(movie: MovieEntity)
+    fun setFavoriteMovie(movie: MovieEntity, state : Boolean)
 
-    fun setFavoriteTvShow(tvShow: TvShowEntity)
+    fun setFavoriteTvShow(tvShow: TvShowEntity, state : Boolean)
 }

@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import junit.framework.Assert
 import junit.framework.Assert.assertEquals
 import org.junit.Before
@@ -16,6 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 import web.id.wahyou.jetpackapp.data.repository.DataRepository
+import web.id.wahyou.jetpackapp.state.Resource
 import web.id.wahyou.jetpackapp.utils.DataDummy
 
 @RunWith(MockitoJUnitRunner::class)
@@ -86,5 +88,30 @@ class DetailViewModelTest {
 
         viewModel.getTvShowDetail(tvShowId).observeForever(observerTvShow)
         verify(observerTvShow).onChanged(dummyTvShow)
+    }
+
+    @Test
+    fun setFavoriteMovies(){
+        val dummyDetailMovie = DataDummy.generateDataMovieDummy()[0]
+        val movie = MutableLiveData<MovieEntity>()
+        movie.value = dummyDetailMovie
+
+        Mockito.lenient().`when`(dataRepository.getMovieDetail(movieId)).thenReturn(movie)
+
+        viewModel.setFavoriteMovie(movie.value!!)
+        verify(dataRepository).setFavoriteMovie(movie.value!!, true)
+        verifyNoMoreInteractions(observerMovie)
+    }
+
+    @Test
+    fun setFavoriteTvShow(){
+        val dummyDetailTvShow = DataDummy.generateDataTvShowDummy()[0]
+        val tvShow = MutableLiveData<TvShowEntity>()
+        tvShow.value = dummyDetailTvShow
+
+        Mockito.lenient().`when`(dataRepository.getTvShowDetail(tvShowId)).thenReturn(tvShow)
+        viewModel.setFavoriteTvShow(tvShow.value!!)
+        verify(dataRepository).setFavoriteTvShow(tvShow.value!!, true)
+        verifyNoMoreInteractions(observerTvShow)
     }
 }

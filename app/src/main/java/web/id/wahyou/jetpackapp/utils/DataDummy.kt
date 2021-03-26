@@ -9,14 +9,15 @@ object DataDummy {
 
         listMovie.add(
             MovieEntity(
-                id = 1,
-                name = "A Star Is Born",
-                desc = "Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even as Ally\\'s career takes off, the personal side of their relationship is breaking down, as Jack fights an ongoing battle with his own internal demons.",
+                movieId = 527774,
+                name = "Raya and the Last Dragon",
+                desc = "Long ago, in the fantasy world of Kumandra, humans and dragons lived together in harmony. But when an evil force threatened the land, the dragons sacrificed themselves to save humanity. Now, 500 years later, that same evil has returned and it’s up to a lone warrior, Raya, to track down the legendary last dragon to restore the fractured land and its divided people",
                 poster = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wrFpXMNBRj2PBiN4Z5kix51XaIZ.jpg",
                 imgPreview = "https://image.tmdb.org/t/p/original/wqtaHWOEZ3rXDJ8c6ZZShulbo18.jpg",
                 release_date = "2020-01-01",
                 vote_average = 7.3,
-                popularity = 23.21
+                popularity = 23.21,
+                isFavorite = false
             )
         )
 
@@ -146,13 +147,15 @@ object DataDummy {
         listTvShow.add(
             TvShowEntity(
                 id = 11,
-                name = "Arrow",
-                desc = "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
+                tvShowId = 69050,
+                name = "Riverdale",
+                desc = "Set in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale’s wholesome facade.",
                 poster = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/gKG5QGz5Ngf8fgWpBsWtlg5L2SF.jpg",
                 imgPreview = "https://image.tmdb.org/t/p/original/elbLQbocvW9vwrHRjYTSjXr5BX5.jpg",
                 first_air_date = "2020-01-01",
                 vote_average = 7.3,
-                popularity = 23.21
+                popularity = 23.21,
+                isFavorite = false
             )
         )
 
@@ -274,5 +277,35 @@ object DataDummy {
         )
 
         return listTvShow
+    }
+
+    fun getDetailMovie(): MovieEntity {
+        return MovieEntity(
+            0,
+            527774,
+            "Wonder Woman 1984",
+            "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah.",
+            "8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
+            "/srYya1ZlI97Au4jUYAktDe3avyA.jpg",
+            "2020-12-16",
+            5.1,
+            7.1,
+            false
+        )
+    }
+
+    fun getDetailTvShow(): TvShowEntity {
+        return TvShowEntity(
+            0,
+            69050,
+            "Cobra Kai",
+            "This Karate Kid sequel series picks up 30 years after the events of the 1984 All Valley Karate Tournament and finds Johnny Lawrence on the hunt for redemption by reopening the infamous Cobra Kai karate dojo. This reignites his old rivalry with the successful Daniel LaRusso, who has been working to maintain the balance in his life without mentor Mr. Miyagi.",
+            "/obLBdhLxheKg8Li1qO11r2SwmYO.jpg",
+            "/gL8myjGc2qrmqVosyGm5CWTir9A.jpg",
+            "2018-05-02",
+            30.0,
+            30.0,
+            false
+        )
     }
 }
