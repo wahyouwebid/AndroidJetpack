@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import junit.framework.TestCase
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

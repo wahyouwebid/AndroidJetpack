@@ -3,6 +3,14 @@ package web.id.wahyou.jetpackapp.utils
 import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 object DataDummy {
     fun generateDataMovieDummy(): List<MovieEntity> {
         val listMovie = ArrayList<MovieEntity>()

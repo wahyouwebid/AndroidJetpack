@@ -19,6 +19,14 @@ import web.id.wahyou.jetpackapp.ui.detail.DetailActivity
 import web.id.wahyou.jetpackapp.utils.Constants.TYPE_TVSHOW
 import javax.inject.Inject
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 class TvShowFragment : DaggerFragment() {
 
     private val binding : FragmentTvshowBinding by lazy {

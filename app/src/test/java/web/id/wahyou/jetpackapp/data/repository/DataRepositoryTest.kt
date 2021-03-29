@@ -3,7 +3,8 @@ package web.id.wahyou.jetpackapp.data.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
@@ -20,7 +21,6 @@ import web.id.wahyou.jetpackapp.data.repository.local.LocalRepository
 import web.id.wahyou.jetpackapp.data.repository.remote.RemoteRepository
 import web.id.wahyou.jetpackapp.state.Resource
 import web.id.wahyou.jetpackapp.utils.DataDummy
-import java.util.concurrent.Executor
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)

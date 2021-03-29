@@ -12,6 +12,14 @@ import web.id.wahyou.jetpackapp.databinding.FragmentFavoriteBinding
 import web.id.wahyou.jetpackapp.ui.main.favorite.movie.FavoriteMovieFragment
 import web.id.wahyou.jetpackapp.ui.main.favorite.tvshow.FavoriteTvShowFragment
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 class FavoriteFragment : DaggerFragment() {
 
     private val binding : FragmentFavoriteBinding by lazy {

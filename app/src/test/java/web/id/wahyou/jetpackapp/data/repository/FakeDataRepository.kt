@@ -1,12 +1,8 @@
 package web.id.wahyou.jetpackapp.data.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
 import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 import web.id.wahyou.jetpackapp.data.model.MovieResponse
@@ -14,7 +10,6 @@ import web.id.wahyou.jetpackapp.data.model.TvShowResponse
 import web.id.wahyou.jetpackapp.data.network.NetworkBoundResource
 import web.id.wahyou.jetpackapp.data.repository.local.LocalRepository
 import web.id.wahyou.jetpackapp.data.repository.remote.RemoteRepository
-import web.id.wahyou.jetpackapp.data.repository.remote.RemoteRepository_Factory
 import web.id.wahyou.jetpackapp.data.repository.state.ApiResponse
 import web.id.wahyou.jetpackapp.state.Resource
 import javax.inject.Inject

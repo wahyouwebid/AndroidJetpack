@@ -12,6 +12,14 @@ import web.id.wahyou.jetpackapp.data.repository.state.ApiResponse
 import web.id.wahyou.jetpackapp.data.repository.state.StatusResponse
 import web.id.wahyou.jetpackapp.state.Resource
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
     private val result = MediatorLiveData<Resource<ResultType>>()

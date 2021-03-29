@@ -12,6 +12,14 @@ import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.databinding.AdapterMovieBinding
 import web.id.wahyou.jetpackapp.utils.Utils
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 class MovieAdapter (
     private val showDetail: (MovieEntity) -> Unit
 ) : PagedListAdapter<MovieEntity, MovieAdapter.ViewHolder>(DIFF_CALLBACK) {

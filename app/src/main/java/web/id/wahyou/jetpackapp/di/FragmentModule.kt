@@ -8,6 +8,14 @@ import web.id.wahyou.jetpackapp.ui.main.favorite.tvshow.FavoriteTvShowFragment
 import web.id.wahyou.jetpackapp.ui.main.movie.MovieFragment
 import web.id.wahyou.jetpackapp.ui.main.tvshow.TvShowFragment
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 @Module
 abstract class FragmentModule {
 

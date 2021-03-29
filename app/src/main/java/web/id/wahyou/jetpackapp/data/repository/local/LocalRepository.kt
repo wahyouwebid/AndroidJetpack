@@ -2,9 +2,6 @@ package web.id.wahyou.jetpackapp.data.repository.local
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import web.id.wahyou.jetpackapp.data.database.dao.MovieDao
 import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity

@@ -8,6 +8,14 @@ import dagger.android.support.AndroidSupportInjectionModule
 import web.id.wahyou.jetpackapp.BaseApplication
 import javax.inject.Singleton
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 @Singleton
 @Component(
     modules = [

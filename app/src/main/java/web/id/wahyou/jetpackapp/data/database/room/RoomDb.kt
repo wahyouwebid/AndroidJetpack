@@ -8,6 +8,14 @@ import web.id.wahyou.jetpackapp.data.database.dao.MovieDao
 import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 @Database(entities = [MovieEntity::class, TvShowEntity::class], version = 1, exportSchema = false)
 abstract class RoomDb : RoomDatabase() {
     abstract fun movieDao(): MovieDao

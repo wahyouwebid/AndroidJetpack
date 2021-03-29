@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import junit.framework.Assert
 import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -17,7 +16,6 @@ import org.mockito.junit.MockitoJUnitRunner
 import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 import web.id.wahyou.jetpackapp.data.repository.DataRepository
-import web.id.wahyou.jetpackapp.state.Resource
 import web.id.wahyou.jetpackapp.utils.DataDummy
 
 @RunWith(MockitoJUnitRunner::class)

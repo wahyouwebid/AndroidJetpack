@@ -9,6 +9,14 @@ import web.id.wahyou.jetpackapp.data.model.MovieResponse
 import web.id.wahyou.jetpackapp.data.model.Response
 import web.id.wahyou.jetpackapp.data.model.TvShowResponse
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 interface ApiService {
 
     @GET("movie/now_playing")

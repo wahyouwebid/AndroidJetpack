@@ -11,6 +11,14 @@ import web.id.wahyou.jetpackapp.BuildConfig.imageUrl
 import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 import web.id.wahyou.jetpackapp.databinding.AdapterTvshowBinding
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 class TvShowAdapter (
     private val showDetail: (TvShowEntity) -> Unit
 ) : PagedListAdapter<TvShowEntity, TvShowAdapter.ViewHolder>(DIFF_CALLBACK) {

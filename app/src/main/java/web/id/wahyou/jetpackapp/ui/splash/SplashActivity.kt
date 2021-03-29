@@ -8,6 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import web.id.wahyou.jetpackapp.databinding.ActivitySplashBinding
 import web.id.wahyou.jetpackapp.ui.main.MainActivity
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 class SplashActivity : AppCompatActivity() {
     private val binding : ActivitySplashBinding by lazy {
         ActivitySplashBinding.inflate(layoutInflater)

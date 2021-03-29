@@ -6,6 +6,14 @@ import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.data.database.entity.TvShowEntity
 import web.id.wahyou.jetpackapp.state.Resource
 
+/**
+ * Created by : wahyouwebid.
+ * Email : hello@wahyou.web.id.
+ * Linkedin : linkedin.com/in/wahyouwebid.
+ * Instagram : instagram.com/wahyouwebid.
+ * Portopolio : wahyou.web.id.
+ */
+
 interface Repository {
     fun getNowPlayingMovies(): LiveData<Resource<PagedList<MovieEntity>>>
 

@@ -4,8 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.nhaarman.mockitokotlin2.verify
-import junit.framework.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -16,7 +14,6 @@ import org.mockito.junit.MockitoJUnitRunner
 import web.id.wahyou.jetpackapp.data.database.entity.MovieEntity
 import web.id.wahyou.jetpackapp.data.repository.DataRepository
 import web.id.wahyou.jetpackapp.state.Resource
-import web.id.wahyou.jetpackapp.utils.DataDummy
 
 @RunWith(MockitoJUnitRunner::class)
 class MovieViewModelTest {
